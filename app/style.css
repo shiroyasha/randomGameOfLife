@@ -1,0 +1,31 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-image: url(http://subtlepatterns.com/patterns/debut_dark.png);
+}
+
+canvas {
+	background-color: white;
+	border-radius: 3px;
+	display: block;
+	float: left;
+}
+
+.panel {
+	float: right;
+	width: 300px;
+	height: 660px;
+	margin: 20px 0;
+	background-color: white;
+	border-left: 1px solid #ccc;
+	box-sizing: border-box;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.container {
+	display: block;
+	width: 1000px;
+	margin: auto;
+	margin-top: 50px;
+}

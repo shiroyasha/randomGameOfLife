@@ -1,3 +1,5 @@
+(function() {
+
 var WIDTH  = 1024/16;
 var HEIGHT = 800/16;
 var CELL_SIZE = 16;
@@ -7,6 +9,10 @@ var NOTHING = 0;
 
 var canvas = document.getElementById("area");
 var c = canvas.getContext('2d');
+
+var interval = null;
+var m1, m2;
+var currentMatrix = null;
 
 function createMatrix(width, height) {
 	var m = [];
@@ -32,10 +38,6 @@ function drawMatrix(m) {
 		}
 	}
 }
-
-
-var m1 = createMatrix(WIDTH, HEIGHT);
-var m2 = createMatrix(WIDTH, HEIGHT);
 
 function getElement(matrix, y, x) {
 	var i = 0;
@@ -91,20 +93,14 @@ function glider(matrix, x, y) {
 	m1[y+2][x+2] = CELL;
 }
 
-function createGliders(matrix, n) {
+function createGliders(matrix, n, randomDir) {
 	for(var i = 0; i < n; i++) {
 		glider(m1, Math.floor( Math.random() * (WIDTH - 4) ),
 							 Math.floor( Math.random() * (HEIGHT - 4) ));
 	}
 }
 
-createGliders(m1, 10);
-
-var currentMatrix = "m1";
-
-drawMatrix(m1);
-
-setInterval( function() {
+var _loop = function() {
 	if(currentMatrix === "m1") {
 		update(m1, m2);
 		drawMatrix(m2);
@@ -114,6 +110,27 @@ setInterval( function() {
 		drawMatrix(m2);
 		currentMatrix = "m1";
 	}
-}, 30);
+};
 
+function start() {
+	var speed     = parseInt( $("#speed").val() );
+	var gliders   = parseInt( $("#gliders").val() );
+	var randomDir = $("#randomDir").is(":checked");
 
+	console.log(speed);
+
+	clearInterval(interval);
+  m1 = createMatrix(WIDTH, HEIGHT);
+	m2 = createMatrix(WIDTH, HEIGHT);
+
+	createGliders(m1, gliders, randomDir);
+	currentMatrix = "m1";
+	drawMatrix(m1);
+	interval = setInterval( _loop, Math.floor(1000/speed) );
+}
+
+start();
+
+$("#restart").on("click", start);
+
+}());
