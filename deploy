@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -rf build && cp -R app build
+cp -R app build
 
 cd build &&
 
@@ -9,3 +9,5 @@ git remote add origin git@github.com:shiroyasha/randomGameOfLife.git &&
 git add . --all &&
 git commit -am "new version `date`" &&
 git push origin master:gh-pages --force
+
+rm -rm build

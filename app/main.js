@@ -11,7 +11,6 @@ var canvas = document.getElementById("area");
 var c = canvas.getContext('2d');
 
 var interval = null;
-var m1, m2;
 var currentMatrix = null;
 
 function createMatrix(width, height) {
@@ -57,13 +56,13 @@ function update(fromMatrix, toMatrix) {
 		for( var j = 0; j < WIDTH; j++) {
 			var count = 0;
 
-			if( getElement(fromMatrix, i-1, j-1) === CELL)  count++;
-			if( getElement(fromMatrix, i-1, j) === CELL )   count++;
+			if( getElement(fromMatrix, i-1, j-1) === CELL ) count++;
+			if( getElement(fromMatrix, i-1, j)   === CELL ) count++;
 			if( getElement(fromMatrix, i-1, j+1) === CELL ) count++;
-			if( getElement(fromMatrix, i, j-1) === CELL )   count++;
-			if( getElement(fromMatrix, i, j+1) === CELL )   count++;
+			if( getElement(fromMatrix, i, j-1)   === CELL ) count++;
+			if( getElement(fromMatrix, i, j+1)   === CELL ) count++;
 			if( getElement(fromMatrix, i+1, j-1) === CELL ) count++;
-			if( getElement(fromMatrix, i+1, j) === CELL )   count++;
+			if( getElement(fromMatrix, i+1, j)   === CELL ) count++;
 			if( getElement(fromMatrix, i+1, j+1) === CELL ) count++;
 
 			toMatrix[i][j] = NOTHING;
@@ -85,52 +84,86 @@ function update(fromMatrix, toMatrix) {
 	}
 }
 
-function glider(matrix, x, y) {
-	m1[y+0][x+1] = CELL;
-	m1[y+1][x+2] = CELL;
-	m1[y+2][x+0] = CELL;
-	m1[y+2][x+1] = CELL;
-	m1[y+2][x+2] = CELL;
+function glider1(matrix, x, y) {
+	matrix[y+0][x+1] = CELL;
+	matrix[y+1][x+2] = CELL;
+	matrix[y+2][x+0] = CELL;
+	matrix[y+2][x+1] = CELL;
+	matrix[y+2][x+2] = CELL;
 }
+
+function glider2(matrix, x, y) {
+	matrix[y-0][x+1] = CELL;
+	matrix[y-1][x+2] = CELL;
+	matrix[y-2][x+0] = CELL;
+	matrix[y-2][x+1] = CELL;
+	matrix[y-2][x+2] = CELL;
+}
+
+function glider3(matrix, x, y) {
+	matrix[y-0][x-1] = CELL;
+	matrix[y-1][x-2] = CELL;
+	matrix[y-2][x-0] = CELL;
+	matrix[y-2][x-1] = CELL;
+	matrix[y-2][x-2] = CELL;
+}
+
+function glider4(matrix, x, y) {
+	matrix[y+0][x-1] = CELL;
+	matrix[y+1][x-2] = CELL;
+	matrix[y+2][x-0] = CELL;
+	matrix[y+2][x-1] = CELL;
+	matrix[y+2][x-2] = CELL;
+}
+
+var gliders = [glider1, glider2, glider3, glider4];
 
 function createGliders(matrix, n, randomDir) {
 	for(var i = 0; i < n; i++) {
-		glider(m1, Math.floor( Math.random() * (WIDTH - 4) ),
-							 Math.floor( Math.random() * (HEIGHT - 4) ));
+		var glider = null;
+
+		if(randomDir) {
+			glider = gliders[Math.floor(Math.random()*4)];
+		} else {
+			glider = gliders[0];
+		}
+
+		glider(matrix, Math.floor( 4 + Math.random() * (WIDTH - 8)  ),
+				       Math.floor( 4 + Math.random() * (HEIGHT - 8) ));
 	}
 }
 
-var _loop = function() {
-	if(currentMatrix === "m1") {
-		update(m1, m2);
-		drawMatrix(m2);
-		currentMatrix = "m2";
-	} else {
-		update(m2, m1);
-		drawMatrix(m2);
-		currentMatrix = "m1";
+
+var createLoop = function(randomDir, glidersCount) {
+	var current = createMatrix(WIDTH, HEIGHT);
+	var other   = createMatrix(WIDTH, HEIGHT);
+
+	createGliders(other, glidersCount, randomDir);
+
+	function drawAndSwap() {
+		update(other, current);
+		drawMatrix(current);
+
+		var tmp = other;
+		other   = current;
+		current = tmp;
 	}
+
+	return drawAndSwap;
 };
 
 function start() {
 	var speed     = parseInt( $("#speed").val() );
 	var gliders   = parseInt( $("#gliders").val() );
 	var randomDir = $("#randomDir").is(":checked");
-
-	console.log(speed);
+	var _loop     = createLoop(randomDir, gliders);
 
 	clearInterval(interval);
-  m1 = createMatrix(WIDTH, HEIGHT);
-	m2 = createMatrix(WIDTH, HEIGHT);
 
-	createGliders(m1, gliders, randomDir);
-	currentMatrix = "m1";
-	drawMatrix(m1);
 	interval = setInterval( _loop, Math.floor(1000/speed) );
 }
 
 start();
-
 $("#restart").on("click", start);
 
 }());
