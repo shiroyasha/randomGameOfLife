@@ -10,4 +10,5 @@ git add . --all &&
 git commit -am "new version `date`" &&
 git push origin master:gh-pages --force
 
-rm -rm build
+cd ..
+rm -rf build
