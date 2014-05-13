@@ -1,31 +1,68 @@
 body {
-	margin: 0;
-	padding: 0;
-	background-image: url(http://subtlepatterns.com/patterns/debut_dark.png);
+  margin: 0;
+  padding: 0;
+  background-image: url(http://subtlepatterns.com/patterns/debut_dark.png);
 }
 
 canvas {
-	background-color: white;
-	border-radius: 3px;
-	display: block;
-	float: left;
+  background-color: white;
+  border-radius: 3px;
+  display: block;
+  float: left;
 }
 
-.panel {
-	float: right;
-	width: 300px;
-	height: 660px;
-	margin: 20px 0;
-	background-color: white;
-	border-left: 1px solid #ccc;
-	box-sizing: border-box;
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
+.m-panel {
+  float: right;
+  width: 300px;
+  height: 660px;
+  margin: 20px 0;
+  background-color: #444;
+  border-left: 1px solid #444;
+  box-sizing: border-box;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+  color: white;
 }
 
-.container {
-	display: block;
-	width: 1000px;
-	margin: auto;
-	margin-top: 50px;
+.m-container {
+  display: block;
+  width: 1000px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+a {
+  color: orange;
+  text-decoration: underline;
+}
+
+.input-group-addon:last-child {
+  background-color: green;
+  border-color: green;
+  color: white;
+}
+
+button.btn-success {
+  background-color: green;
+  border-color: green;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+button span {
+  padding-right: 10px;
+}
+
+.footer {
+  font-size: 20px;
+  color: white;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.footer .hearth {
+  color: orange;
+  padding: 0 5px;
 }
