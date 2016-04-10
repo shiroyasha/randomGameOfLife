@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<title>Gliders</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+
+<div class="m-container clearfix">
+  <canvas id="area" width="700" height="700"></canvas>
+
+  <div class="m-panel">
+    <div>
+      <h1>Gliders</h1>
+      <p>
+        This is a game, Convay's Game of life to be precise. A world
+	where gliders can run free, and their complexity can grow and flourish.
+      </p>
+      <p>Learn more about <a target="_blank" href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life">Game of Life</a></p>
+    </div>
+
+    <form class="form">
+      <h3>Settings</h3>
+      <div class="form-group">
+        <label for="speed">Gliders speed</label>
+	<div class="input-group">
+          <input id="speed" type="text" value="30" class="form-control">
+	  <span class="input-group-addon">cells per second</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="gliders">Number of gliders</label>
+	<div class="input-group">
+          <input id="gliders" type="text" value="10" class="form-control">
+	  <span class="input-group-addon">gliders</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cell-size">Cell size</label>
+	<div class="input-group">
+          <input id="cell-size" type="text" value="16" class="form-control">
+	  <span class="input-group-addon">pixels</span>
+        </div>
+      </div>
+
+      <div class="form-group text-center">
+        <input id="randomDir" type="checkbox" checked>
+        <label for="randomDir">Choose random direction</label>
+      </div>
+
+      <button id="restart" class="btn btn-success form-control">
+        <span class="glyphicon glyphicon-refresh"></span> Restart
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-text="game of life gliders" data-via="igor_sarcevic" data-hashtags="gliders">Tweet</a>
+  <p>Created with <span class="hearth">❤</span>  by Igor Šarčević</p>
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="Field.js"></script>
+<script src="main.js"></script>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
